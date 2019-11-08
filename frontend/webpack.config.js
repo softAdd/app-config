@@ -1,4 +1,4 @@
-// common constants
+// common modules
 const path = require('path');
 const requireContext = require('require-context');
 
@@ -6,12 +6,12 @@ const requireContext = require('require-context');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+// const CopyPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const autoprefixer = require('autoprefixer');
 
-// file collections
-const css = requireContext(__dirname + '/src/css', false, /\.css$/)
+// collections
+const css = requireContext(__dirname + '/src/css', false, /\.css$/);
 
 function importAll(files, path) {
     return files.keys().map(file => {
@@ -28,7 +28,7 @@ module.exports = {
         ]
     },
     output: {
-        filename: '[name].js',
+        filename: 'js/[name].js',
         path: path.resolve(__dirname, 'dist'),
     },
     context: path.resolve(__dirname, 'src'),
@@ -80,7 +80,7 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: 'css/[name].css',
         })
     ],
     optimization: {
@@ -90,12 +90,6 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/
             }),
             new OptimizeCSSAssetsPlugin({}),
-            new CopyPlugin([
-                { from: 'images/tours', to: 'images/tours' },
-                { from: 'images/team', to: 'images/team' },
-                { from: 'images/icons', to: 'images/icons' },
-                { from: 'images/extra', to: 'images/extra' },
-            ]),
             new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
         ]
     }
