@@ -32,6 +32,12 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
     },
     context: path.resolve(__dirname, 'src'),
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 3000,
+        watchContentBase: true
+    },
     module: {
         rules: [
             {
